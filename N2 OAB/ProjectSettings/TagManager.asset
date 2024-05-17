@@ -11,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - grassLayer
+  - objectsLayer
+  - lojaPortaLayer
+  - lojaSaidaLayer
+  - npcLayer
+  - npcEnemy
+  - npcVendedor
+  - npcCriatura
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1753598307
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
