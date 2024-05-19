@@ -41,6 +41,15 @@ TagManager:
   - name: Background
     uniqueID: 1753598307
     locked: 0
+  - name: Grama
+    uniqueID: 615562637
+    locked: 0
+  - name: Colisao
+    uniqueID: 1675386141
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Npc
+    uniqueID: 1467648879
     locked: 0
