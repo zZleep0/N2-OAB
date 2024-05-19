@@ -36,7 +36,6 @@ public class CameraController : MonoBehaviour
 
         if (playerScript.entrarBatalha == true)//Input.GetKeyDown(KeyCode.K)
         {
-            playerScript.canMove = false;
             StartCoroutine(EntrarBatalha());
             playerScript.entrarBatalha = false;
 
@@ -75,11 +74,8 @@ public class CameraController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
 
-
-
         changeCam = false;
 
-        //SceneManager.LoadScene("nomeDaCena");
     }
 
     public IEnumerator SairBatalha()

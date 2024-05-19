@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour
     public bool vsNPC;
     public bool isCriaDefeated;
     public bool vsCria;
+    public InteractionController interactController;
+    
+
 
 
     //public GameObject player;
@@ -47,6 +52,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        interactController = GameObject.Find("InteractController").GetComponent<InteractionController>();
+        
+
         moveSpeed = 5;
         canMove = true;
 
@@ -58,17 +66,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (SceneManager.GetActiveScene().name == "BattleScene")
-        //{
-        //    canMove = false;
-        //    spritePlayer.enabled = false;
-        //}
-        //else
-        //{
-        //    canMove = true;
-        //    spritePlayer.enabled = true;
-        //}
-
+        #region andar e correr
         //Movimento
         if (!isMoving)
         {
@@ -102,9 +100,11 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = 5;
         }
+        #endregion
 
     }
 
+    #region movimento do player
     IEnumerator Move(Vector3 endPos)
     {
         if (canMove == true)
@@ -138,14 +138,17 @@ public class PlayerController : MonoBehaviour
         }
         return true;
     }
+    #endregion
 
     public void Battle()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer))
         {
+            
             Debug.Log("esta no layer grassLayer");
             if (Random.Range(1, 101) <= 20)
             {
+                canMove = false;
                 entrarBatalha = true;
                 Debug.Log("encontrou uma batalha");
                 //player.SetActive(false);
@@ -153,13 +156,87 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #region interacao de npc
     public void Interacao()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.5f, npcLayer))
         {
+            interactController.panelDialogue.SetActive(true);
+            interactController.textoNpc.SetText("Oi");
             Debug.Log("ta no layer do npc");
         }
+        //Interacao com inimimgo
+        else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcEnemyLayer))
+        {
+            Debug.Log("esta no layer npcEnemyL");
+            interactController.panelDialogue.SetActive(true);
+            if (isNPCDefeated == false)
+            {
+                vsNPC = true;
+                interactController.textoNpc.SetText("Voce se meteu em encrenca");
+                // Chama a função para iniciar a contagem regressiva após interação
+                StartCountdown();
+            }
+            else if (isNPCDefeated == true)
+            {
+                interactController.textoNpc.SetText("Eu fui derrotado, droga!");
+            }
+        }
+
+        //Interacao com pokemon
+        //else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcCriatura))
+        //{
+        //    Debug.Log("esta no layer npcpokemon");
+        //    if (isCriaDefeated == false)
+        //    {
+        //        vsCria = true;
+        //        // Chama a função para iniciar a contagem regressiva após interação
+        //        StartCountdown();
+        //    }
+        //    else if (isCriaDefeated == true)
+        //    {
+        //        vsCria = false;
+        //        //Destroy(interactController.pokemon);
+        //    }
+        //}
+
+        //Interacao com vendedor
+        else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcVendedor))
+        {
+            Debug.Log("esta no layer vendedor");
+            interactController.panelDialogue.SetActive(true);
+            interactController.textoNpc.SetText("Como posso te ajudar?");
+
+            interactController.panelVendedor.SetActive(true);
+        }
+
+        //Nao esta interagindo
+        else
+        {
+            if (interactController.panelVendedor.activeSelf == true)
+            {
+                interactController.panelVendedor.SetActive(false);
+            }
+        interactController.panelDialogue.SetActive(false);
+            isInteracting = false; // Reinicia a interação
+        }
     }
+    //Countdown para transicao de tela
+    private void StartCountdown()
+    {
+        if (!isInteracting)
+        {
+            isInteracting = true;
+            StartCoroutine(CountDownCoroutine());
+        }
+    }
+    private IEnumerator CountDownCoroutine()
+    {
+        yield return new WaitForSeconds(2f); // Espera 2 segundos
+
+        entrarBatalha = true; // Carrega a batalha
+    }
+    #endregion
 
     //public void EntrarLoja()
     //{
