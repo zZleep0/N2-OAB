@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e1e18274617b6174686ba5d57e66569e
+guid: 936369a71cdac1447a4351856227a6e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2705671600874929508
-    second: Hypno frente_0
+      213: 1548318224951224287
+    second: Jigglypuff frente_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hypno frente_0
+      name: Jigglypuff frente_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3
-        width: 64
-        height: 58
+        x: 15
+        y: 15
+        width: 35
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46d33095cf97c8520800000000000000
-      internalID: 2705671600874929508
+      spriteID: fd72b75e83bbc7510800000000000000
+      internalID: 1548318224951224287
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hypno frente_0: 2705671600874929508
+      Jigglypuff frente_0: 1548318224951224287
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

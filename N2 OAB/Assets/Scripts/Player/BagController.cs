@@ -14,6 +14,9 @@ public class BagController : MonoBehaviour
 
     public PlayerHp playerHP;
 
+    [Header("Quantidade de items")]
+    public int qtdePocao;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +31,10 @@ public class BagController : MonoBehaviour
         playerHP = GameObject.Find("HpPlayer").GetComponent<PlayerHp>();
         playerSlider = GameObject.Find("HpPlayer").GetComponent<Slider>();
 
-
         panelMochila = GameObject.Find("PanelMochila");
         panelMochila.SetActive(false);
 
+        qtdePocao = 2;
     }
 
     // Update is called once per frame
@@ -42,17 +45,25 @@ public class BagController : MonoBehaviour
 
     public void Pocao()
     {
-        //Para teste
-        //playerSlider.value += 10;
-
-        hpchange = (int)playerHP.hp.value;
-        hpchange += 10;
-        if (hpchange < 0)
+        if (qtdePocao > 0)
         {
-            hpchange = 0;
+            //Para teste
+            //playerSlider.value += 10;
+
+            hpchange = (int)playerHP.hp.value;
+            hpchange += 10;
+            if (hpchange < 0)
+            {
+                hpchange = 0;
+            }
+            StartCoroutine(playerHP.HpUp(hpchange));
+            qtdePocao--;
+            Debug.Log("Usou pocao, agora tem " + qtdePocao);
         }
-        StartCoroutine(playerHP.HpUp(hpchange));
-        Debug.Log("Curou a vida do pokemon");
+        else
+        {
+            Debug.Log("acabou as pocoes");
+        }
         
     }
 

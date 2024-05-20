@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 010c699e807a8aa4083a56637b3e4d95
+guid: 4bc756d8dbe24ef478e07d288c438c69
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1583772051757233022
-    second: Squirtle costas_0
+      213: 3399648932029314489
+    second: Pidgey costas_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Squirtle costas_0
+      name: Pidgey costas_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 13
-        width: 44
-        height: 38
+        x: 7
+        y: 7
+        width: 50
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28c81d9c5bf450ae0800000000000000
-      internalID: -1583772051757233022
+      spriteID: 9b5b4aa01bafd2f20800000000000000
+      internalID: 3399648932029314489
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Squirtle costas_0: -1583772051757233022
+      Pidgey costas_0: 3399648932029314489
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

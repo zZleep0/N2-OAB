@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91f7997122fbf894585a3fd0cf0ff1ad
+guid: 06d52952799023f4490283f3fdd81851
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Squirtle frente_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 11
-        width: 40
-        height: 38
+        x: 0
+        y: 0
+        width: 37
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

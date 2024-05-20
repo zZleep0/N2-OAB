@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask npcEnemyLayer;
     public LayerMask npcVendedor;
     public LayerMask npcCriatura;
+    public LayerMask npcCura;
     public bool isInteracting = false;
     public bool isNPCDefeated;
     public bool vsNPC;
@@ -210,6 +211,15 @@ public class PlayerController : MonoBehaviour
             interactController.panelVendedor.SetActive(true);
         }
 
+        else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcCura))
+        {
+            Debug.Log("esta no layer cura");
+            interactController.panelDialogue.SetActive(true);
+            interactController.panelCuradora.SetActive(true);
+            interactController.textoNpc.SetText("Voce gostaria de curar seus pokemons?");
+            
+        }
+
         //Nao esta interagindo
         else
         {
@@ -217,7 +227,8 @@ public class PlayerController : MonoBehaviour
             {
                 interactController.panelVendedor.SetActive(false);
             }
-        interactController.panelDialogue.SetActive(false);
+            interactController.panelDialogue.SetActive(false);
+            interactController.panelCuradora.SetActive(false);
             isInteracting = false; // Reinicia a interação
         }
     }

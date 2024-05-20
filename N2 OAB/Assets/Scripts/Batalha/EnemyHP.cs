@@ -14,12 +14,14 @@ public class EnemyHP : MonoBehaviour
     public bool isAlive;
 
     public PlayerController playerScript;
+    public Sprites spriteScript;
     //public CameraController cameraController;
 
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        spriteScript = GameObject.Find("ScriptSprites").GetComponent <Sprites>();
 
         hp = GetComponent<Slider>();
         hpColor = hp.GetComponentsInChildren<Image>()[1];
@@ -116,13 +118,12 @@ public class EnemyHP : MonoBehaviour
         if (!isAlive)
         {
             Debug.Log("comecou o countdown");
-            //StartCoroutine(FinalBatalha());
             playerScript.sairBatalha = true;
         }
     }
 
-    //IEnumerator FinalBatalha()
-    //{
-    //    yield return new WaitForSeconds(2f); // Espera 2 segundos
-    //}
+    public void VidaPokemon()
+    {
+        
+    }
 }

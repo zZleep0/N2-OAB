@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 010c699e807a8aa4083a56637b3e4d95
+guid: 00a0de7b9ccaf63409e3899dfcea94cb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1583772051757233022
-    second: Squirtle costas_0
+      213: -2045276644085357312
+    second: Haunter frente_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Squirtle costas_0
+      name: Haunter frente_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 13
-        width: 44
-        height: 38
+        x: 15
+        y: 26
+        width: 63
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28c81d9c5bf450ae0800000000000000
-      internalID: -1583772051757233022
+      spriteID: 005a3e18ab7bd93e0800000000000000
+      internalID: -2045276644085357312
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Squirtle costas_0: -1583772051757233022
+      Haunter frente_0: -2045276644085357312
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

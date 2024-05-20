@@ -25,7 +25,7 @@ public class Sprites : MonoBehaviour
     public int enemyPokemonChoose;
 
     //Pokemons que o treinador ta carregando
-    public string[] pokemons = { "Squirtle", "Vaporeon", "Gengar", "Hypno" };
+    public string[] pokemons = { "Bulbasaur", "Charmander", "Squirtle", "Pidgey", "Haunter", "Jigglypuff" };
 
     public GameObject panelPokes;
 
@@ -38,6 +38,7 @@ public class Sprites : MonoBehaviour
         //Pega os scripts ajudantes
         //npcInteract = GameObject.Find("Player").GetComponent<NPCInteract>();
         //enemyPanelController = GameObject.Find("PanelEnemy").GetComponent<EnemyPanelController>();
+        panelPokes = GameObject.Find("PanelPokeList");
 
         textPokePlayer = GameObject.Find("NomePlayer").GetComponent<TextMeshProUGUI>();
         textPokeEnemy = GameObject.Find("NomeEnemy").GetComponent<TextMeshProUGUI>();
@@ -76,7 +77,6 @@ public class Sprites : MonoBehaviour
             pokes.GetComponent<Button>().onClick.AddListener(delegate { Invoke(item, 0f); });
         }
 
-        panelPokes = GameObject.Find("PanelPokeList");
         panelPokes.SetActive(false);
         //Recebendo as sprites do treinador
         //spritePlayer = AssetDatabase.LoadAllAssetsAtPath("Assets/Sprites/PlayerMovement.png");

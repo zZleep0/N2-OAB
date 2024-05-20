@@ -7,13 +7,20 @@ using UnityEngine.UI;
 public class InteractionController : MonoBehaviour
 {
     public PlayerController playerScript;
+    public BagController bagController;
+    public PlayerHp playerHp;
 
     public TextMeshProUGUI textoNpc;
     public GameObject panelDialogue;
-    public GameObject panelVendedor;
+    
+
+    [Header("Curadora")]
+    public GameObject panelCuradora;
+    public Slider playerSlider;
 
     [Header("vendedor")]
     public string[] itens = { "Pocao", "Pokebola", "Repelente" };
+    public GameObject panelVendedor;
 
     //public GameObject pokemon;
 
@@ -23,10 +30,13 @@ public class InteractionController : MonoBehaviour
         textoNpc = GameObject.Find("TextoDialogo").GetComponent<TextMeshProUGUI>();
         panelDialogue = GameObject.Find("PanelDialogo");
         panelVendedor = GameObject.Find("PanelVenda");
+        panelCuradora = GameObject.Find("PanelCuradora");
+        playerSlider = GameObject.Find("HpPlayer").GetComponent<Slider>();
 
         panelDialogue.SetActive(false);
 
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        bagController = GameObject.Find("BagController").GetComponent<BagController>();
 
         //opcoes do vendedor
         for (int i = 0; i < itens.Length; i++)
@@ -38,6 +48,7 @@ public class InteractionController : MonoBehaviour
         }
         
         panelVendedor.SetActive(false);
+        panelCuradora.SetActive(false);
     }
 
     // Update is called once per frame
@@ -48,7 +59,8 @@ public class InteractionController : MonoBehaviour
 
     public void Pocao()
     {
-        Debug.Log("comprou pocao");
+        bagController.qtdePocao++;
+        Debug.Log("comprou pocao, agora tem " + bagController.qtdePocao);
     }
 
     public void Pokebola()
@@ -61,6 +73,10 @@ public class InteractionController : MonoBehaviour
         Debug.Log("comprou repelente");
     }
 
-    
+    public void CurarNPC()
+    {
+        playerSlider.value = playerSlider.maxValue;
+        Debug.Log("Curou seus pokemons");
+    }
 
 }

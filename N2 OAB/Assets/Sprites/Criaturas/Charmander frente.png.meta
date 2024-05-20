@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 010c699e807a8aa4083a56637b3e4d95
+guid: 94c6d03e29b4e09498221dced38df89e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1583772051757233022
-    second: Squirtle costas_0
+      213: 1414063762876145880
+    second: Charmander frente_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Squirtle costas_0
+      name: Charmander frente_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 13
-        width: 44
-        height: 38
+        x: 2
+        y: 1
+        width: 33
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28c81d9c5bf450ae0800000000000000
-      internalID: -1583772051757233022
+      spriteID: 8d02cf31083cf9310800000000000000
+      internalID: 1414063762876145880
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Squirtle costas_0: -1583772051757233022
+      Charmander frente_0: 1414063762876145880
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

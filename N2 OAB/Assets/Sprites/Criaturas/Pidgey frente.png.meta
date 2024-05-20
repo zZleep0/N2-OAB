@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 44c75b9a5295fbf4799ac61d8241c149
+guid: d060effe4f827df489b2bdf7a2a7160d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7877941114676333387
-    second: Gengar costas_0
+      213: -5989351652365598488
+    second: Pidgey frente_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gengar costas_0
+      name: Pidgey frente_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 9
-        width: 64
-        height: 46
+        x: 15
+        y: 12
+        width: 36
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4b4ab564b1145d60800000000000000
-      internalID: 7877941114676333387
+      spriteID: 8e089d5b76c81eca0800000000000000
+      internalID: -5989351652365598488
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Gengar costas_0: 7877941114676333387
+      Pidgey frente_0: -5989351652365598488
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
