@@ -8,28 +8,29 @@ using UnityEngine.UI;
 
 public class Sprites : MonoBehaviour
 {
-    //public EnemyPanelController enemyPanelController;
-    //public NPCInteract npcInteract;
 
     //Sprite dos pokemons
     public Image enemyPokemon;
     public Image playerPokemon;
+    //Nome dos pokemons
+    public TextMeshProUGUI textPokePlayer;
+    public TextMeshProUGUI textPokeEnemy;
 
     //Pokemons com o treinador
     public Sprite[] enemyPokes;
     public Sprite[] playerPokes;
 
-    //Sprite do player
-    public Object[] spritePlayer;
-
-    //Pokemons que o treinador ta carregando
-    public string[] pokemons = { "Alakazam", "Gengar", "Hitmonlee", "Hypno", "Snorlax", "Squirtle" };
-
     //Pokemon selecionado
     public int pokemonChoose;
+    public int enemyPokemonChoose;
 
-    public TextMeshProUGUI textPokePlayer;
-    public TextMeshProUGUI textPokeEnemy;
+    //Pokemons que o treinador ta carregando
+    public string[] pokemons = { "Squirtle", "Vaporeon", "Gengar", "Hypno" };
+
+    public GameObject panelPokes;
+
+    ////Sprite do player
+    //public Object[] spritePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -49,22 +50,36 @@ public class Sprites : MonoBehaviour
 
         for (int i = 0; i < pokemons.Length; i++)   //Pegando as sprites dos pokemons pelas assets
         {
-            enemyPokes[i] = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/" + pokemons[i] + " frente.png");
-            playerPokes[i] = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/" + pokemons[i] + " costas.png");
+            enemyPokes[i] = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Criaturas/" + pokemons[i] + " frente.png");
+            playerPokes[i] = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Criaturas/" + pokemons[i] + " costas.png");
         }
+
+        enemyPokemonChoose = Random.Range(0, pokemons.Length); //aleatorizar o pokemon inimigo
 
         //pokemon = Random.Range(0, pokemons.Length);
         //pokemonChoose = enemyPanelController.pokemon;
 
-        //Definir os pokemons que iniciarao a batalha
-        enemyPokemon.sprite = enemyPokes[pokemonChoose];
+        //Definir os pokemons que iniciarao a batalha:
+        //Do player
         playerPokemon.sprite = playerPokes[0];
+        textPokePlayer.SetText(pokemons[pokemonChoose]);
 
+        //Do inimigo
+        enemyPokemon.sprite = enemyPokes[enemyPokemonChoose];
+        textPokeEnemy.SetText(pokemons[enemyPokemonChoose]);
 
+        for (int i = 0; i < pokemons.Length; i++)
+        {
+            GameObject pokes = GameObject.Find("Poke" + (i + 1));
+            pokes.GetComponentInChildren<TextMeshProUGUI>().text = pokemons[i];
+            string item = pokes.GetComponentInChildren<TextMeshProUGUI>().text;
+            pokes.GetComponent<Button>().onClick.AddListener(delegate { Invoke(item, 0f); });
+        }
 
+        panelPokes = GameObject.Find("PanelPokeList");
+        panelPokes.SetActive(false);
         //Recebendo as sprites do treinador
-        spritePlayer = AssetDatabase.LoadAllAssetsAtPath("Assets/Sprites/PlayerMovement.png");
-
+        //spritePlayer = AssetDatabase.LoadAllAssetsAtPath("Assets/Sprites/PlayerMovement.png");
     }
 
     // Update is called once per frame

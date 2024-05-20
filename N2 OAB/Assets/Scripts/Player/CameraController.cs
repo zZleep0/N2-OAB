@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
 
     //public GameObject playerObj;
     public PlayerController playerScript;
+    public EnemyHP enemyHP;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class CameraController : MonoBehaviour
         battleCam = GameObject.Find("CameraBatalha").GetComponent<Camera>();
         painel = GameObject.Find("PanelTransicao").GetComponent<Image>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        enemyHP = GameObject.Find("HpEnemy").GetComponent <EnemyHP>();
         //playerObj = GameObject.Find("Player");
 
         overworldCam.enabled = cam;
@@ -34,7 +36,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
 
-        if (playerScript.entrarBatalha == true)//Input.GetKeyDown(KeyCode.K)
+        if (playerScript.entrarBatalha == true)
         {
             StartCoroutine(EntrarBatalha());
             playerScript.entrarBatalha = false;
@@ -42,8 +44,14 @@ public class CameraController : MonoBehaviour
         }
         else if (playerScript.sairBatalha == true)
         {
+            StartCoroutine(EntrarBatalha());
             playerScript.canMove = true;
-            StartCoroutine(SairBatalha());
+
+            //restaurar a vida para fullhp para o proximo inimigo
+            enemyHP.hp.value = enemyHP.hp.maxValue;
+            //Para nao repetir a transicao de tela varias vezes
+            enemyHP.isAlive = true;
+
             playerScript.sairBatalha = false;
         }
 
@@ -52,6 +60,7 @@ public class CameraController : MonoBehaviour
 
     public IEnumerator EntrarBatalha()
     {
+
         changeCam = true;
         //for (int i = 0; i < 8 ; i++)
         //{
@@ -68,32 +77,36 @@ public class CameraController : MonoBehaviour
         battleCam.enabled = !cam;
         //playerObj.transform.position = new Vector2(battleCam.transform.position.x, battleCam.transform.position.y);
 
-        yield return new WaitForSeconds(0.2f);
-
-        painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 0f);
-        yield return new WaitForSeconds(0.1f);
-
-
-        changeCam = false;
-
-    }
-
-    public IEnumerator SairBatalha()
-    {
-        changeCam = true;
-        painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 1f);
-        yield return new WaitForSeconds(0.1f);
-
-        cam = !cam;
-        overworldCam.enabled = cam;
-        battleCam.enabled = !cam;
-        //playerObj.transform.position = new Vector2(overworldCam.transform.position.x, overworldCam.transform.position.y);
+        
 
         yield return new WaitForSeconds(0.2f);
 
         painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 0f);
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
 
         changeCam = false;
+
+        
     }
+
+    //public IEnumerator SairBatalha()
+    //{
+    //    changeCam = true;
+    //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 1f);
+    //    yield return new WaitForSeconds(0.1f);
+
+    //    cam = !cam;
+    //    overworldCam.enabled = cam;
+    //    battleCam.enabled = !cam;
+    //    //playerObj.transform.position = new Vector2(overworldCam.transform.position.x, overworldCam.transform.position.y);
+
+    //    yield return new WaitForSeconds(0.2f);
+
+    //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 0f);
+    //    yield return new WaitForSeconds(0.1f);
+
+        
+
+    //    changeCam = false;
+    //}
 }
