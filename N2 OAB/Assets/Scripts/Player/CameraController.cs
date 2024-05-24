@@ -14,9 +14,9 @@ public class CameraController : MonoBehaviour
     public bool changeCam = false;
     public bool cam = true;
 
-    //public GameObject playerObj;
     public PlayerController playerScript;
     public EnemyHP enemyHP;
+    public Sprites scriptSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour
         painel = GameObject.Find("PanelTransicao").GetComponent<Image>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyHP = GameObject.Find("HpEnemy").GetComponent <EnemyHP>();
-        //playerObj = GameObject.Find("Player");
 
         overworldCam.enabled = cam;
         battleCam.enabled = !cam;
@@ -62,13 +61,7 @@ public class CameraController : MonoBehaviour
     {
 
         changeCam = true;
-        //for (int i = 0; i < 8 ; i++)
-        //{
-        //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 1f);
-        //    yield return new WaitForSeconds(0.1f);
-        //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 0f);
-        //    yield return new WaitForSeconds(0.1f);
-        //}
+
         painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 1f);
         yield return new WaitForSeconds(0.3f);
 
@@ -76,8 +69,6 @@ public class CameraController : MonoBehaviour
         overworldCam.enabled = cam;
         battleCam.enabled = !cam;
         //playerObj.transform.position = new Vector2(battleCam.transform.position.x, battleCam.transform.position.y);
-
-        
 
         yield return new WaitForSeconds(0.2f);
 
@@ -89,24 +80,5 @@ public class CameraController : MonoBehaviour
         
     }
 
-    //public IEnumerator SairBatalha()
-    //{
-    //    changeCam = true;
-    //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 1f);
-    //    yield return new WaitForSeconds(0.1f);
-
-    //    cam = !cam;
-    //    overworldCam.enabled = cam;
-    //    battleCam.enabled = !cam;
-    //    //playerObj.transform.position = new Vector2(overworldCam.transform.position.x, overworldCam.transform.position.y);
-
-    //    yield return new WaitForSeconds(0.2f);
-
-    //    painel.color = new Color(painel.color.r, painel.color.g, painel.color.b, 0f);
-    //    yield return new WaitForSeconds(0.1f);
-
-        
-
-    //    changeCam = false;
-    //}
+    
 }

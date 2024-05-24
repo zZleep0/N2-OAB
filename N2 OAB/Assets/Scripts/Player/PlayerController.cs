@@ -6,14 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    //public Cameras camLoja;
-    //public NPCInteract npcInteract;
+    
 
     [Header("Movimento player")]
     public float moveSpeed; //Controle de velocidade
     public bool isMoving; //Indica se o objeto esta se movendo
     public bool isRunning;
-    public bool canMove;
+    public bool canMove; //Indica se o player pode mover
     public Vector2 startPos;
     public Vector2 endPos;
 
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Batalha infos")]
     public bool entrarBatalha;
     public bool sairBatalha;
+    public bool inimigoAleatorio;
 
     [Header("Entrar em estruturas")]
     public bool entrouLoja = false;
@@ -46,10 +46,6 @@ public class PlayerController : MonoBehaviour
     
 
 
-
-    //public GameObject player;
-    //public SpriteRenderer spritePlayer;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
         isCriaDefeated = false;
         isNPCDefeated = false;
-        //spritePlayer = GameObject.Find("PlayerMovement_0").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -145,14 +140,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer))
         {
-            
             Debug.Log("esta no layer grassLayer");
             if (Random.Range(1, 101) <= 20)
             {
+                inimigoAleatorio = true;
                 canMove = false;
                 entrarBatalha = true;
                 Debug.Log("encontrou uma batalha");
-                //player.SetActive(false);
+                
             }
         }
     }
@@ -166,6 +161,7 @@ public class PlayerController : MonoBehaviour
             interactController.textoNpc.SetText("Oi");
             Debug.Log("ta no layer do npc");
         }
+
         //Interacao com inimimgo
         else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcEnemyLayer))
         {
@@ -211,6 +207,7 @@ public class PlayerController : MonoBehaviour
             interactController.panelVendedor.SetActive(true);
         }
 
+        //Interacao com curandeira
         else if (Physics2D.OverlapCircle(transform.position, 0.5f, npcCura))
         {
             Debug.Log("esta no layer cura");

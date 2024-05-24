@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Sprites : MonoBehaviour
 {
+    public PlayerController playerScript;
 
     //Sprite dos pokemons
     public Image enemyPokemon;
@@ -29,20 +30,16 @@ public class Sprites : MonoBehaviour
 
     public GameObject panelPokes;
 
-    ////Sprite do player
-    //public Object[] spritePlayer;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         //Pega os scripts ajudantes
-        //npcInteract = GameObject.Find("Player").GetComponent<NPCInteract>();
-        //enemyPanelController = GameObject.Find("PanelEnemy").GetComponent<EnemyPanelController>();
+        playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         panelPokes = GameObject.Find("PanelPokeList");
-
         textPokePlayer = GameObject.Find("NomePlayer").GetComponent<TextMeshProUGUI>();
         textPokeEnemy = GameObject.Find("NomeEnemy").GetComponent<TextMeshProUGUI>();
-
         enemyPokemon = GameObject.Find("SpriteEnemy").GetComponent<Image>();    //Localiza o elemento que representara o pokemon inimigo
         playerPokemon = GameObject.Find("SpritePlayer").GetComponent<Image>();    //Localiza o elemento que representara o pokemon aliado
 
@@ -55,43 +52,29 @@ public class Sprites : MonoBehaviour
             playerPokes[i] = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Criaturas/" + pokemons[i] + " costas.png");
         }
 
-        enemyPokemonChoose = Random.Range(0, pokemons.Length); //aleatorizar o pokemon inimigo
-
-        //pokemon = Random.Range(0, pokemons.Length);
-        //pokemonChoose = enemyPanelController.pokemon;
-
-        //Definir os pokemons que iniciarao a batalha:
-        //Do player
+        //Define o pokemon do player na batalha
         playerPokemon.sprite = playerPokes[0];
         textPokePlayer.SetText(pokemons[pokemonChoose]);
 
-        //Do inimigo
-        enemyPokemon.sprite = enemyPokes[enemyPokemonChoose];
-        textPokeEnemy.SetText(pokemons[enemyPokemonChoose]);
-
-        for (int i = 0; i < pokemons.Length; i++)
-        {
-            GameObject pokes = GameObject.Find("Poke" + (i + 1));
-            pokes.GetComponentInChildren<TextMeshProUGUI>().text = pokemons[i];
-            string item = pokes.GetComponentInChildren<TextMeshProUGUI>().text;
-            pokes.GetComponent<Button>().onClick.AddListener(delegate { Invoke(item, 0f); });
-        }
-
-        panelPokes.SetActive(false);
-        //Recebendo as sprites do treinador
-        //spritePlayer = AssetDatabase.LoadAllAssetsAtPath("Assets/Sprites/PlayerMovement.png");
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Mudar as sprites do inimigo aleatoriamente quando achar batalha
+        if (playerScript.inimigoAleatorio == true)
+        {
+            //aleatorizar o pokemon inimigo
+            enemyPokemonChoose = Random.Range(0, pokemons.Length);
 
+            //Define o pokemon do inimigo na batalha
+            enemyPokemon.sprite = enemyPokes[enemyPokemonChoose];
+            textPokeEnemy.SetText(pokemons[enemyPokemonChoose]);
+
+            playerScript.inimigoAleatorio = false;
+        }
+        
     }
 
-    public void EscolherPokemon(int poke)
-    {
-        playerPokemon.sprite = playerPokes[poke];   //Modificar o sprite para o pokemon escolhido
-
-        textPokePlayer.text = pokemons[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
-    }
+    
 }

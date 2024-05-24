@@ -6,14 +6,16 @@ using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
 {
+    [Header("Scripts")]
     public PlayerController playerScript;
     public BagController bagController;
     public PlayerHp playerHp;
 
+    [Header("Npcs gerais")]
     public TextMeshProUGUI textoNpc;
     public GameObject panelDialogue;
+    //public string[] infoNpc = { "Nada", "Informante", "Ajudante" };
     
-
     [Header("Curadora")]
     public GameObject panelCuradora;
     public Slider playerSlider;
@@ -22,7 +24,8 @@ public class InteractionController : MonoBehaviour
     public string[] itens = { "Pocao", "Pokebola", "Repelente" };
     public GameObject panelVendedor;
 
-    //public GameObject pokemon;
+    //[Header("Inimigo")]
+    //public int[] idInimigo = { 1, 2, 3, 4, 5, 6};
 
     // Start is called before the first frame update
     void Start()
