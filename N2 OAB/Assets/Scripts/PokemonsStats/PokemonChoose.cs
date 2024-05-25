@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 public class PokemonChoose : MonoBehaviour
 {
+    public PlayerController playerController;
     public Sprites spritesScript;
 
     private GameObject panelPokeChoose;
     //private TextMeshProUGUI nomePokePlayer;
-    
-
 
     //Pokemons que o treinador ta carregando
     public string[] pokemons = { "Bulbasaur", "Charmander", "Squirtle", "Pidgey", "Haunter", "Jigglypuff" };
@@ -41,6 +40,7 @@ public class PokemonChoose : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             panelPokeChoose.SetActive(true);
+            playerController.canMove = false;
         }
     }
 
@@ -49,5 +49,10 @@ public class PokemonChoose : MonoBehaviour
         spritesScript.playerPokemon.sprite = spritesScript.playerPokes[poke];   //Modificar o sprite para o pokemon escolhido
 
         spritesScript.textPokePlayer.text = pokemons[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
+    }
+
+    public void CancelarMenu()
+    {
+        playerController.canMove = true;
     }
 }

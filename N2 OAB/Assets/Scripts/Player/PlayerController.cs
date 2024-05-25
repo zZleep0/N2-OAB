@@ -170,6 +170,7 @@ public class PlayerController : MonoBehaviour
             if (isNPCDefeated == false)
             {
                 vsNPC = true;
+                canMove = false;
                 interactController.textoNpc.SetText("Voce se meteu em encrenca");
                 // Chama a função para iniciar a contagem regressiva após interação
                 StartCountdown();
@@ -241,7 +242,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator CountDownCoroutine()
     {
         yield return new WaitForSeconds(2f); // Espera 2 segundos
-
+        interactController.panelDialogue.SetActive(false);
         entrarBatalha = true; // Carrega a batalha
     }
     #endregion
