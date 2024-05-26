@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Move", menuName = "Pokemon/Create new Move")]
+[CreateAssetMenu(fileName = "Move", menuName = "Pokemon/Create new move")]
 public class MoveBase : ScriptableObject
 {
     [SerializeField] string moveName;
 
     [TextArea]
-    [SerializeField] string moveDescription;
+    [SerializeField] string description;
 
-    [SerializeField] PokeType type;
+    [SerializeField] PokemonType type;
     [SerializeField] int power;
     [SerializeField] int accuracy;
     [SerializeField] int pp;
 
-    public string MoveName
+    public string Name
     {
-        get { return moveName; }
+        get { return name; }
     }
     public string Description
     {
-        get { return moveDescription; }
+        get { return description; }
     }
-    public PokeType Type
+    public PokemonType Type
     {
         get { return type; }
     }
@@ -39,6 +39,4 @@ public class MoveBase : ScriptableObject
     {
         get { return pp; }
     }
-
-    
 }

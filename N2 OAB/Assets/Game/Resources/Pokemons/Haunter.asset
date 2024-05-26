@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b7b0ff94efa74289f259b412e7773, type: 3}
+  m_Name: Haunter
+  m_EditorClassIdentifier: 
+  pokemonID: 4
+  pokeName: Haunter
+  gender: 0
+  description: 
+  frontSprite: {fileID: -2045276644085357312, guid: 00a0de7b9ccaf63409e3899dfcea94cb, type: 3}
+  backSprite: {fileID: -8375566271637908607, guid: ee96eed83c907dd46b1ca32e795865d1, type: 3}
+  type1: 14
+  type2: 8
+  maxHp: 45
+  attack: 50
+  defense: 45
+  spAttack: 115
+  spDefense: 55
+  speed: 95
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 76a65ef086db0784a9769f1d353b9e33, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 7de2c3aa4a0f0c7448372abd114057b8, type: 2}
+    level: 12
+  - moveBase: {fileID: 11400000, guid: 5d8f1d49b8ecab443a3f3d1a60878fd7, type: 2}
+    level: 16
