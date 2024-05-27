@@ -15,7 +15,6 @@ public class EnemyHP : MonoBehaviour
 
     public PlayerController playerScript;
     public Sprites spriteScript;
-    //public CameraController cameraController;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +25,6 @@ public class EnemyHP : MonoBehaviour
         hp = GetComponent<Slider>();
         hpColor = hp.GetComponentsInChildren<Image>()[1];
         hpChange = (int)hp.value;
-
         isAlive = true;
     }
 

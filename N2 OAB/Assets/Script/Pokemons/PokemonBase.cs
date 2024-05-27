@@ -97,6 +97,8 @@ public class PokemonBase : ScriptableObject
         get { return learnableMoves; } 
     }
 }
+
+
 [System.Serializable]
 public class LearnableMove
 {
