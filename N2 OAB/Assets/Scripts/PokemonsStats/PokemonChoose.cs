@@ -9,24 +9,27 @@ public class PokemonChoose : MonoBehaviour
 {
     public PlayerController playerController;
     public Sprites spritesScript;
+    public PokeInfosController pokeInfosController;
 
     private GameObject panelPokeChoose;
     //private TextMeshProUGUI nomePokePlayer;
 
     //Pokemons que o treinador ta carregando
-    public string[] pokemons = { "Bulbasaur", "Charmander", "Squirtle", "Pidgey", "Haunter", "Jigglypuff" };
+    //public string[] pokemons = { "Bulbasaur", "Charmander", "Squirtle", "Pidgey", "Haunter", "Jigglypuff" };
 
     // Start is called before the first frame update
     void Start()
     {
         panelPokeChoose = GameObject.Find("PanelPokeChoose");
         spritesScript = GameObject.Find("ScriptSprites").GetComponent<Sprites>();
+        pokeInfosController = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         
 
-        for (int i = 0; i < pokemons.Length; i++)
+        for (int i = 0; i < pokeInfosController.poke.Length; i++)
         {
             GameObject pokes = GameObject.Find("PokeChoose" + (i + 1));
-            pokes.GetComponentInChildren<TextMeshProUGUI>().text = pokemons[i];
+            pokes.GetComponentInChildren<TextMeshProUGUI>().text = pokeInfosController.poke[i];
             string pokemon = pokes.GetComponentInChildren<TextMeshProUGUI>().text;
             pokes.GetComponent<Button>().onClick.AddListener(delegate { Invoke(pokemon, 0f); });
         }
@@ -46,9 +49,10 @@ public class PokemonChoose : MonoBehaviour
 
     public void EscolherPoke(int poke)
     {
+        //spritesScript.playerPokemon.sprite = pokeInfosController.statusPoke.pokemonBase.BackSprite;
         spritesScript.playerPokemon.sprite = spritesScript.playerPokes[poke];   //Modificar o sprite para o pokemon escolhido
 
-        spritesScript.textPokePlayer.text = pokemons[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
+        spritesScript.textPokePlayer.text = pokeInfosController.poke[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
     }
 
     public void CancelarMenu()

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Pokemon : MonoBehaviour
 {
+    public PlayerController playerScript;
+    public PokemonChoose pokemonChoose;
+
     public string pokemon;
     public PokemonBase pokemonBase;
     // Atributos privados
@@ -194,7 +197,7 @@ public class Pokemon : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(playerScript.entrarBatalha)
         {
             pokemonBase = AssetDatabase.LoadAssetAtPath<PokemonBase>("Assets/Game/Resources/Pokemons/" + pokemon + ".asset");
             this.pokeName = pokemonBase.name;
@@ -208,6 +211,7 @@ public class Pokemon : MonoBehaviour
 
     private void Start()
     {
-        
+        playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        pokemonChoose = GameObject.Find("CanvasControllers").GetComponentInChildren<PokemonChoose>();
     }
 }

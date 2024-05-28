@@ -1380,6 +1380,8 @@ GameObject:
   - component: {fileID: 262193855}
   - component: {fileID: 262193857}
   - component: {fileID: 262193856}
+  - component: {fileID: 262193859}
+  - component: {fileID: 262193858}
   m_Layer: 5
   m_Name: PanelEnemy
   m_TagString: Untagged
@@ -1447,6 +1449,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262193854}
   m_CullTransparentMesh: 1
+--- !u!114 &262193858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262193854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ca1b78865706946905f2fc9ccaa469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
+  pokemonChoose: {fileID: 0}
+  pokemon: 
+  pokemonBase: {fileID: 0}
+--- !u!114 &262193859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262193854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff89d7d4a692bcb45af2693a932a991f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choosePokemon: {fileID: 0}
+  scriptSprites: {fileID: 0}
+  playerController: {fileID: 0}
+  statusPoke: {fileID: 0}
+  poke:
+  - Bulbasaur
+  - Charmander
+  - Squirtle
+  - Pidgey
+  - Haunter
+  - Jigglypuff
 --- !u!1 &262570221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3728,13 +3769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   spritesScript: {fileID: 0}
-  pokemons:
-  - Bulbasaur
-  - Charmander
-  - Squirtle
-  - Pidgey
-  - Haunter
-  - Jigglypuff
+  pokeInfosController: {fileID: 0}
 --- !u!1 &742800043
 GameObject:
   m_ObjectHideFlags: 0
@@ -31733,9 +31768,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff89d7d4a692bcb45af2693a932a991f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  choosePokemon: {fileID: 0}
+  scriptSprites: {fileID: 0}
+  playerController: {fileID: 0}
   statusPoke: {fileID: 0}
-  pokemonChoose: 0
-  enemyPokemonChoose: 0
   poke:
   - Bulbasaur
   - Charmander
@@ -31755,6 +31791,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ca1b78865706946905f2fc9ccaa469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
+  pokemonChoose: {fileID: 0}
   pokemon: 
   pokemonBase: {fileID: 0}
 --- !u!1 &1334895341
@@ -38857,10 +38895,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScript: {fileID: 0}
+  infoController: {fileID: 0}
   enemyPokemon: {fileID: 0}
   playerPokemon: {fileID: 0}
   textPokePlayer: {fileID: 0}
   textPokeEnemy: {fileID: 0}
+  textLvlPlayer: {fileID: 0}
+  textLvlEnemy: {fileID: 0}
   enemyPokes: []
   playerPokes: []
   pokemonChoose: 0
@@ -39007,6 +39048,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896437941}
   m_CullTransparentMesh: 1
+--- !u!1 &1908631740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908631741}
+  m_Layer: 5
+  m_Name: ScriptInfos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1908631741
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908631740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2138379524}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1945819430
 GameObject:
   m_ObjectHideFlags: 0
@@ -95538,6 +95614,7 @@ RectTransform:
   m_Children:
   - {fileID: 499502371}
   - {fileID: 1894986469}
+  - {fileID: 1908631741}
   m_Father: {fileID: 703389641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
