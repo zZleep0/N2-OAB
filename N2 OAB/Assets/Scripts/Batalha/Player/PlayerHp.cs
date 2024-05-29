@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHp : MonoBehaviour
 {
+    public PokeInfosController pokeInfos;
+
     public Slider hp;
     public Image hpColor;
     public bool isChanging;
@@ -13,6 +15,8 @@ public class PlayerHp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pokeInfos = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
+
         hp = GetComponent<Slider>();
         hpColor = hp.GetComponentsInChildren<Image>()[1];
         hpChange = (int)hp.value;
@@ -60,7 +64,7 @@ public class PlayerHp : MonoBehaviour
         }
     }
 
-    IEnumerator HpDown(int endHp)
+    public IEnumerator HpDown(int endHp)
     {
         isChanging = true;
         while (Mathf.Abs(endHp - hp.value) > 0.05)
@@ -69,6 +73,8 @@ public class PlayerHp : MonoBehaviour
             yield return null;
         }
         hp.value = endHp;
+
+        pokeInfos.AtualizarVida();
 
         isChanging = false;
     }
@@ -82,6 +88,8 @@ public class PlayerHp : MonoBehaviour
             yield return null;
         }
         hp.value = endHp;
+
+        pokeInfos.AtualizarVida();
 
         isChanging = false;
     }

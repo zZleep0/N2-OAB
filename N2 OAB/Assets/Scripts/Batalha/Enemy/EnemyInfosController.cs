@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyInfosController : MonoBehaviour
 {
-    public PokemonChoose choosePokemon;
+    public EnemyHP hpEnemy;
     public Sprites scriptSprites;
     public PlayerController playerController;
     //Script do pokemon
-    public Pokemon statusPoke;
+    public Pokemon statusPokeE;
+
 
 
     //Pokemons possiveis na batalha
@@ -20,38 +22,41 @@ public class EnemyInfosController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        statusPoke = GetComponent<Pokemon>();
-        //scriptSprites = GameObject.Find("ScriptSprites").GetComponent<Sprites>();
-        //playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-
+        statusPokeE = GetComponent<Pokemon>();
+        scriptSprites = GameObject.Find("ScriptSprites").GetComponent<Sprites>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        hpEnemy = GameObject.Find("HpEnemy").GetComponent<EnemyHP>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
+        //Mudar as sprites do inimigo aleatoriamente quando achar batalha
+        if (scriptSprites.playerScript.inimigoAleatorio == true || Input.GetKeyDown(KeyCode.U))
         {
             Inimigo();
+            scriptSprites.playerScript.inimigoAleatorio = false;
         }
 
-        //Mudar as sprites do inimigo aleatoriamente quando achar batalha
-        //if (scriptSprites.playerScript.inimigoAleatorio == true)
-        //{
-            //scriptSprites.playerScript.inimigoAleatorio = false;
-        //}
     }
 
     public void Inimigo()
     {
         //aleatorizar o pokemon inimigo
-        //pokeChoose = Random.Range(0, poke.Length);
-        //statusPoke.pokemon = pokeChoose.ToString();
+        pokeChoose = Random.Range(0, poke.Length);
+        statusPokeE.pokemon = poke[pokeChoose];
 
-        statusPoke.pokemon = poke[4];
+        //Pegar as infos no Pokemon que pega o PokemonBase
+        statusPokeE.FixarInfos();
 
-        scriptSprites.textPokeEnemy.text = statusPoke.pokemonBase.name;
-        scriptSprites.enemyPokemon.sprite = statusPoke.pokemonBase.BackSprite;
+        //Definir a vida do pokemon com base no status
+        hpEnemy.hp.maxValue = statusPokeE.MaxHP;
+        //hpEnemy.hp.value = statusPokeE.CurrentHP;
+
+        //Colocar as infos no Canvas
+        scriptSprites.textPokeEnemy.text = statusPokeE.PokeName;
+        scriptSprites.enemyPokemon.sprite = statusPokeE.pokemonBase.FrontSprite;
 
         ////Define o pokemon do inimigo na batalha
         //scriptSprites.enemyPokemon.sprite = scriptSprites.enemyPokes[scriptSprites.enemyPokemonChoose];

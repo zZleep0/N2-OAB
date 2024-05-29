@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Pokemon : MonoBehaviour
 {
-    public PlayerController playerScript;
-    public PokemonChoose pokemonChoose;
 
     public string pokemon;
     public PokemonBase pokemonBase;
@@ -177,7 +175,7 @@ public class Pokemon : MonoBehaviour
         Debug.Log($"Max HP: {maxHP}");
         Debug.Log($"Current HP: {currentHP}");
         Debug.Log($"Attack: {attack}");
-        Debug.Log($"Defense: {defense}");
+        //Debug.Log($"Defense: {defense}");
         //Debug.Log($"Attack: {specialAttack}");
         //Debug.Log($"Defense: {specialDefense}");
         //Debug.Log($"Defense: {speed}");
@@ -197,21 +195,25 @@ public class Pokemon : MonoBehaviour
 
     private void Update()
     {
-        if(playerScript.entrarBatalha)
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            pokemonBase = AssetDatabase.LoadAssetAtPath<PokemonBase>("Assets/Game/Resources/Pokemons/" + pokemon + ".asset");
-            this.pokeName = pokemonBase.name;
-            this.level = 2;
-            this.maxHP = pokemonBase.MaxHp;
-            this.attack = pokemonBase.Attack;
-            this.defense = pokemonBase.Defense;
-            DisplayInfo();
+            FixarInfos();
         }
     }
 
     private void Start()
     {
-        playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        pokemonChoose = GameObject.Find("CanvasControllers").GetComponentInChildren<PokemonChoose>();
+
+    }
+
+    public void FixarInfos()
+    {
+        pokemonBase = AssetDatabase.LoadAssetAtPath<PokemonBase>("Assets/Game/Resources/Pokemons/" + pokemon + ".asset");
+        this.pokeName = pokemonBase.name;
+        this.level = 2;
+        this.maxHP = pokemonBase.MaxHp;
+        this.attack = pokemonBase.Attack;
+        this.defense = pokemonBase.Defense;
+        DisplayInfo();
     }
 }

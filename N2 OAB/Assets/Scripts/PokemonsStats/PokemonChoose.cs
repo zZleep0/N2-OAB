@@ -49,10 +49,12 @@ public class PokemonChoose : MonoBehaviour
 
     public void EscolherPoke(int poke)
     {
+        pokeInfosController.pokeChoose = poke; //nao pode ser o contrario
+        pokeInfosController.Player();
+        Debug.Log(poke);
         //spritesScript.playerPokemon.sprite = pokeInfosController.statusPoke.pokemonBase.BackSprite;
-        spritesScript.playerPokemon.sprite = spritesScript.playerPokes[poke];   //Modificar o sprite para o pokemon escolhido
-
-        spritesScript.textPokePlayer.text = pokeInfosController.poke[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
+        //spritesScript.playerPokemon.sprite = spritesScript.playerPokes[poke];   //Modificar o sprite para o pokemon escolhido
+        //spritesScript.textPokePlayer.text = pokeInfosController.poke[poke].FirstCharacterToUpper();     //Modificar o nome para o pokemon escolhido, deixando ele com a primeira letra maiuscula
     }
 
     public void CancelarMenu()

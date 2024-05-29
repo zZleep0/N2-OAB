@@ -7,6 +7,9 @@ public class BatalhaController : MonoBehaviour
 {
     public PlayerController playerScript;
 
+    public List<TextMeshProUGUI> moveTexts;
+    
+
     public GameObject panelInteract;
     public TextMeshProUGUI textoBatalha;
 
@@ -27,6 +30,7 @@ public class BatalhaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.L))
         {
             turnoPlayer = false;
@@ -37,11 +41,6 @@ public class BatalhaController : MonoBehaviour
             StartCoroutine(TurnoInimigo());
         }
         
-    }
-
-    public void Fugir()
-    {
-        playerScript.sairBatalha = true;
     }
 
     public IEnumerator TurnoInimigo()
@@ -60,5 +59,36 @@ public class BatalhaController : MonoBehaviour
         yield return new WaitForSeconds(1);
         panelInteract.SetActive(true);
         textoBatalha.SetText("O que pokemon vai fazer?");
+    }
+
+    public void MoveNames(List<LearnableMove> moves)
+    {
+        if (playerScript.entrarBatalha == true)
+        {
+            for (int i = 0; i < moveTexts.Count; i++)
+            {
+
+                if (i < moves.Count)
+                    moveTexts[i].text = moves[i].Base.Name;
+                else
+                    moveTexts[i].text = "-";
+            }
+        }
+    }
+
+    public void AtaqueBotao()
+    {
+        textoBatalha.enabled = false;
+    }
+
+    public void Atacar()
+    {
+        textoBatalha.enabled = true;
+        //Depois colocar para o turno ser falso para começar o turno do inimigo
+    }
+
+    public void Fugir()
+    {
+        playerScript.sairBatalha = true;
     }
 }
