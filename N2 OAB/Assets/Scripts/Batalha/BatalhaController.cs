@@ -1,52 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BatalhaController : MonoBehaviour
 {
     public PlayerController playerScript;
-
-    public List<TextMeshProUGUI> moveTexts;
+    public Moves movesScript;
+    public PokeInfosController pokeInfosController;
     
+    public List<TextMeshProUGUI> moveTexts;
+    [SerializeField] public MoveBase[] movesBase;
+    public string[] moveNames = { "Charm", "Confuse Ray", "Covert", "Echoed Voice", "Ember", "Growl", "Gust", "Mean Look", "Payback", "Sand Attack", "Scratch", "Spite", "Tackle", "Vine Whip", "Water Gun", "Withdraw" };
+    public List<string> nomes;
 
     public GameObject panelInteract;
     public TextMeshProUGUI textoBatalha;
+    public string padrao = "O que pokemon vai fazer?";
 
     public bool turnoPlayer; // se true = player, se false = inimgo
 
     // Start is called before the first frame update
     void Start()
     {
+        pokeInfosController = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
+        
+
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        movesScript = GetComponent<Moves>();
 
         panelInteract = GameObject.Find("PanelInteracao");
         textoBatalha = GameObject.Find("TextoBatalha").GetComponent<TextMeshProUGUI>();
 
-        textoBatalha.SetText("O que pokemon vai fazer?");
+        textoBatalha.text = "O que pokemon vai fazer?";
         turnoPlayer = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            turnoPlayer = false;
-        }
+
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    turnoPlayer = false;
+        //}
 
         if (turnoPlayer == false)
         {
-            StartCoroutine(TurnoInimigo());
+            TrocaTurno();
         }
+
+        if (playerScript.entrarBatalha == true)
+        {
+            MoveNames();
+        }
+    }
+
+    public void TrocaTurno()
+    {
         
+        StartCoroutine(TurnoInimigo());
     }
 
     public IEnumerator TurnoInimigo()
     {
         turnoPlayer = true; //Para nao repetir a corrotina durante ela mesma
         panelInteract.SetActive(false);
+
+        yield return new WaitForSeconds(1);
 
         //Ataque do inimigo
         textoBatalha.SetText("inimigo usou tal");
@@ -58,37 +82,66 @@ public class BatalhaController : MonoBehaviour
         //fim do turno do inimigo
         yield return new WaitForSeconds(1);
         panelInteract.SetActive(true);
-        textoBatalha.SetText("O que pokemon vai fazer?");
+        textoBatalha.SetText(padrao);
     }
 
-    public void MoveNames(List<LearnableMove> moves)
+    public void Movimentos()
     {
-        if (playerScript.entrarBatalha == true)
+        for (int i = 0; i < movesBase.Length; i++)
         {
-            for (int i = 0; i < moveTexts.Count; i++)
-            {
-
-                if (i < moves.Count)
-                    moveTexts[i].text = moves[i].Base.Name;
-                else
-                    moveTexts[i].text = "-";
-            }
+            movesBase[i] = AssetDatabase.LoadAssetAtPath<MoveBase>("Assets/Game/Resources/Moves/" + moveNames[i] + ".assets");
         }
+    }
+
+    public void MoveNames()
+    {
+        //for (int i = 0; i < moveTexts.Count; i++)
+        //{
+        //    GameObject moves = GameObject.Find("Ataque" + (i + 1));
+        //    moves.GetComponentInChildren<TextMeshProUGUI>().text = "" + moveTexts[i];
+        //    string ataque = moves.GetComponentInChildren<TextMeshProUGUI>().text;
+        //    moves.GetComponent<Button>().onClick.AddListener(delegate { Invoke(ataque, 0f); });
+        //}
+
+
+        //nomes = new List<string>();
+
+        //foreach (var move in pokeInfosController.statusPoke.LearnableMoves)
+        //{
+        //    nomes.Add(move.ToString());
+        //}
+
+
+        //for (int i = 0; i < nomes.Count; i++)
+        //{
+        //    GameObject moves = GameObject.Find("Ataque" + (i + 1));
+        //    moves.GetComponentInChildren<TextMeshProUGUI>().text = nomes[i];
+        //    string ataque = nomes[i];
+        //    moves.GetComponent<Button>().onClick.AddListener(delegate { Invoke(ataque, 0f); });
+        //}
+        //Debug.Log(nomes[1]);
+
+
     }
 
     public void AtaqueBotao()
     {
         textoBatalha.enabled = false;
+        
     }
 
     public void Atacar()
     {
         textoBatalha.enabled = true;
+        movesScript.atacou = true;
         //Depois colocar para o turno ser falso para começar o turno do inimigo
+        turnoPlayer = false;
     }
 
     public void Fugir()
     {
         playerScript.sairBatalha = true;
     }
+
+    
 }

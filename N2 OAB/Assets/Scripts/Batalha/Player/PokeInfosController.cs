@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,7 @@ public class PokeInfosController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.entrarBatalha == true || Input.GetKeyDown(KeyCode.I))
+        if (playerController.entrarBatalha == true)
         {            
             Player();
         }
@@ -45,6 +46,9 @@ public class PokeInfosController : MonoBehaviour
     {
         //Escolha de pokemon no script pokemonChoose
         statusPoke.pokemon = poke[pokeChoose];
+
+        //Definir o nivel do pokemon
+        statusPoke.Level = 4;
 
         //pegar os status no script pokemon
         statusPoke.FixarInfos();
@@ -56,11 +60,9 @@ public class PokeInfosController : MonoBehaviour
         //Colocar as infos no Canvas
         scriptSprites.textPokePlayer.text = statusPoke.PokeName;
         scriptSprites.playerPokemon.sprite = statusPoke.pokemonBase.BackSprite;
+        scriptSprites.textLvlPlayer.text = "Lv" + statusPoke.Level;
 
-        //statusPoke.Level = Random.Range(2, 10);
-        statusPoke.Level = 2;
-        //scriptSprites.textLvlPlayer.SetText("Lv" + statusPoke.Level); ////nao funciona
-        //Debug.Log(statusPoke.Level);
+        
     }
 
     //Feito no script PlayerHp

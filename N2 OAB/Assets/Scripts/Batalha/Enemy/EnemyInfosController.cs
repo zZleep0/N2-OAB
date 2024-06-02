@@ -33,11 +33,15 @@ public class EnemyInfosController : MonoBehaviour
     void Update()
     {
         //Mudar as sprites do inimigo aleatoriamente quando achar batalha
-        if (scriptSprites.playerScript.inimigoAleatorio == true || Input.GetKeyDown(KeyCode.U))
+        if (scriptSprites.playerScript.inimigoAleatorio == true)
         {
-            Inimigo();
+            Inimigo();   
             scriptSprites.playerScript.inimigoAleatorio = false;
         }
+        if (scriptSprites.playerScript.batalhaMoment == true)
+            DefinirVida();
+        
+            
 
     }
 
@@ -47,24 +51,56 @@ public class EnemyInfosController : MonoBehaviour
         pokeChoose = Random.Range(0, poke.Length);
         statusPokeE.pokemon = poke[pokeChoose];
 
+        //aleatorizar o nivel do inimigo
+        statusPokeE.Level = Random.Range(2, 10);
+
         //Pegar as infos no Pokemon que pega o PokemonBase
         statusPokeE.FixarInfos();
 
-        //Definir a vida do pokemon com base no status
+        //Definir a vida do pokemon com base no status (nao faco ideia de que acidente ocorreu aqui)
         hpEnemy.hp.maxValue = statusPokeE.MaxHP;
-        //hpEnemy.hp.value = statusPokeE.CurrentHP;
+        statusPokeE.MaxHP = (int)hpEnemy.hp.value; // Definir MaxHP com base no slider
+        Debug.Log("a vida é " + hpEnemy.hp.value);
+        hpEnemy.hp.value = statusPokeE.CurrentHP;
+        statusPokeE.CurrentHP = (int)hpEnemy.hp.maxValue; // Definir CurrentHP como MaxHP
 
         //Colocar as infos no Canvas
         scriptSprites.textPokeEnemy.text = statusPokeE.PokeName;
         scriptSprites.enemyPokemon.sprite = statusPokeE.pokemonBase.FrontSprite;
+        scriptSprites.textLvlEnemy.text = "Lv " + statusPokeE.Level;
 
-        ////Define o pokemon do inimigo na batalha
-        //scriptSprites.enemyPokemon.sprite = scriptSprites.enemyPokes[scriptSprites.enemyPokemonChoose];
-        //scriptSprites.textPokeEnemy.SetText(poke[scriptSprites.enemyPokemonChoose]);
 
-        
     }
 
-
     
+
+    public void DefinirVida()
+    {
+        //Atualizar o slider da vida
+        hpEnemy.hp.value = statusPokeE.CurrentHP;
+    }
+
+    public void AtualizaVidaE()
+    {
+        //Para teste
+        //hpEnemy.hp.value = statusPokeE.CurrentHP;
+
+        if (statusPokeE.CurrentHP <= 0)
+        {
+            Debug.Log("Zerou a vida");
+            hpEnemy.batalhaController.textoBatalha.text = "O inimigo foi derrotado";
+            hpEnemy.isAlive = false;
+            scriptSprites.playerScript.batalhaMoment = false;
+            hpEnemy.StartCountDown();
+        }
+
+        else
+        {
+            hpEnemy.hpChange = statusPokeE.CurrentHP;
+            hpEnemy.StartCoroutine(hpEnemy.HpDown(hpEnemy.hpChange));
+            Debug.Log("A vida do pokemon inimigo agora é " + statusPokeE.CurrentHP);
+        }
+
+    }
+
 }

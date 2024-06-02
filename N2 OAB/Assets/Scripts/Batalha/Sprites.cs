@@ -50,7 +50,7 @@ public class Sprites : MonoBehaviour
         textPokeEnemy = GameObject.Find("NomeEnemy").GetComponent<TextMeshProUGUI>();
 
         textLvlPlayer = GameObject.Find("LvlPlayer").GetComponent<TextMeshProUGUI>();
-        textLvlPlayer = GameObject.Find("LvlEnemy").GetComponent<TextMeshProUGUI>();
+        textLvlEnemy = GameObject.Find("LvlEnemy").GetComponent<TextMeshProUGUI>();
 
         enemyPokemon = GameObject.Find("SpriteEnemy").GetComponent<Image>();    //Localiza o elemento que representara o pokemon inimigo
         playerPokemon = GameObject.Find("SpritePlayer").GetComponent<Image>();    //Localiza o elemento que representara o pokemon aliado

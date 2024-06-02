@@ -13,6 +13,7 @@ public class BagController : MonoBehaviour
     public GameObject panelMochila;
 
     public PlayerHp playerHP;
+    public BatalhaController batalhaController;
 
     [Header("Quantidade de items")]
     public int qtdePocao;
@@ -29,6 +30,7 @@ public class BagController : MonoBehaviour
         }
 
         playerHP = GameObject.Find("HpPlayer").GetComponent<PlayerHp>();
+        batalhaController = GameObject.Find("ScriptBatalha").GetComponentInChildren<BatalhaController>();
         playerSlider = GameObject.Find("HpPlayer").GetComponent<Slider>();
 
         panelMochila = GameObject.Find("PanelMochila");
@@ -59,6 +61,7 @@ public class BagController : MonoBehaviour
             StartCoroutine(playerHP.HpUp(hpchange));
             qtdePocao--;
             Debug.Log("Usou pocao, agora tem " + qtdePocao);
+            StartCoroutine(UsarPocao());
         }
         else
         {
@@ -70,5 +73,12 @@ public class BagController : MonoBehaviour
     public void Pokebola()
     {
         Debug.Log("Jogou a pokebola");
+    }
+
+    public IEnumerator UsarPocao()
+    {
+        batalhaController.textoBatalha.text = "Seu pokemon curou " + hpchange;
+        yield return new WaitForSeconds(1);
+        batalhaController.textoBatalha.text = batalhaController.padrao;
     }
 }

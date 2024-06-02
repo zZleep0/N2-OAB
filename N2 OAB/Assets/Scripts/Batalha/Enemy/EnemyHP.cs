@@ -15,12 +15,16 @@ public class EnemyHP : MonoBehaviour
 
     public PlayerController playerScript;
     public Sprites spriteScript;
+    public BatalhaController batalhaController;
+    public EnemyInfosController enemyInfosController;
 
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         spriteScript = GameObject.Find("ScriptSprites").GetComponent <Sprites>();
+        batalhaController = GameObject.Find("ScriptBatalha").GetComponent<BatalhaController>();
+        enemyInfosController = GameObject.Find("PanelEnemy").GetComponent<EnemyInfosController>();
 
         hp = GetComponent<Slider>();
         hpColor = hp.GetComponentsInChildren<Image>()[1];
@@ -64,22 +68,27 @@ public class EnemyHP : MonoBehaviour
                 hpColor.color = Color.red;
             }
 
-            if (hp.value <= 0)
-            {
-                
-                Debug.Log("Desmaiou");
-                StartCountDown();
-                isAlive = false;
+            //if (playerScript.entrarBatalha == true)
+            //{
+            //    if (enemyInfosController.statusPokeE.CurrentHP <= 0)
+            //    {
+            //        //Debug.Log("a vida zerou" + enemyInfosController.statusPokeE.CurrentHP);
+            //        //batalhaController.textoBatalha.text = "O inimigo foi derrotado";
+            //        Debug.Log("Desmaiou");
+            //        //isAlive = false;
+            //        //StartCountDown();
 
-                if (playerScript.vsNPC == true)
-                {
-                    playerScript.isNPCDefeated = true;
-                }
-                else if (playerScript.vsCria == true)
-                {
-                    playerScript.isCriaDefeated = true;
-                }
-            }
+
+            //        //if (playerScript.vsNPC == true)
+            //        //{
+            //        //    playerScript.isNPCDefeated = true;
+            //        //}
+            //        //else if (playerScript.vsCria == true)
+            //        //{
+            //        //    playerScript.isCriaDefeated = true;
+            //        //}
+            //    }
+            //}
         }
 
 
@@ -88,6 +97,7 @@ public class EnemyHP : MonoBehaviour
     public IEnumerator HpDown(int endHp)
     {
         isChanging = true;
+
         while (Mathf.Abs(endHp - hp.value) > 0.05)
         {
             hp.value -= 0.05f;
@@ -111,17 +121,21 @@ public class EnemyHP : MonoBehaviour
         isChanging = false;
     }
 
-    void StartCountDown()
+    public void StartCountDown()
     {
-        if (!isAlive)
+        if (isAlive == false)
         {
-            Debug.Log("comecou o countdown");
-            playerScript.sairBatalha = true;
+            isAlive = true;
+            StartCoroutine(TerminarBatalha());
         }
     }
 
-    public void VidaPokemon()
+    public IEnumerator TerminarBatalha()
     {
-        
+        yield return new WaitForSeconds(3f);
+        Debug.Log("comecou o countdown");
+        playerScript.sairBatalha = true;
     }
+
+    
 }

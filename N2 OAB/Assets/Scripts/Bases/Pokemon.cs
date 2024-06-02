@@ -46,6 +46,8 @@ public class Pokemon : MonoBehaviour
     private bool isPoisoned;
     // Adicione mais variáveis temporárias conforme necessário...
 
+    private List<LearnableMove> leanableMoves;
+
     // Construtor
     private void Awake()
     {
@@ -154,6 +156,12 @@ public class Pokemon : MonoBehaviour
         set { isPoisoned = value; }
     }
 
+    public List<LearnableMove> LearnableMoves
+    {
+        get { return leanableMoves; }
+        set {  leanableMoves = value; }
+    }
+
     // Método para atualizar os atributos ao subir de nível
     private void UpdateAttributes()
     {
@@ -175,7 +183,7 @@ public class Pokemon : MonoBehaviour
         Debug.Log($"Max HP: {maxHP}");
         Debug.Log($"Current HP: {currentHP}");
         Debug.Log($"Attack: {attack}");
-        //Debug.Log($"Defense: {defense}");
+        Debug.Log($"Defense: {defense}");
         //Debug.Log($"Attack: {specialAttack}");
         //Debug.Log($"Defense: {specialDefense}");
         //Debug.Log($"Defense: {speed}");
@@ -191,13 +199,15 @@ public class Pokemon : MonoBehaviour
         //Debug.Log($"Confused: {isConfused}");
         //Debug.Log($"Poisoned: {isPoisoned}");
         // Exiba outros atributos conforme necessário...
+
+        Debug.Log($"Movimentos: {leanableMoves.Count}");
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.O))
         {
-            FixarInfos();
+            DisplayInfo();
         }
     }
 
@@ -210,10 +220,12 @@ public class Pokemon : MonoBehaviour
     {
         pokemonBase = AssetDatabase.LoadAssetAtPath<PokemonBase>("Assets/Game/Resources/Pokemons/" + pokemon + ".asset");
         this.pokeName = pokemonBase.name;
-        this.level = 2;
+        //this.level = 2;
         this.maxHP = pokemonBase.MaxHp;
         this.attack = pokemonBase.Attack;
         this.defense = pokemonBase.Defense;
-        DisplayInfo();
+
+
+        this.leanableMoves = pokemonBase.LearnableMoves;
     }
 }

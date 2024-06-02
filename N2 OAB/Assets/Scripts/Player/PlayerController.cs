@@ -1,6 +1,9 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool entrarBatalha;
     public bool sairBatalha;
     public bool inimigoAleatorio;
+    public bool batalhaMoment = false;
 
     [Header("Entrar em estruturas")]
     public bool entrouLoja = false;
@@ -43,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public bool isCriaDefeated;
     public bool vsCria;
     public InteractionController interactController;
+    public NpcProps npcProps;
+    
     
 
 
@@ -50,6 +56,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         interactController = GameObject.Find("InteractController").GetComponent<InteractionController>();
+        
+        
+        
         
 
         moveSpeed = 5;
@@ -143,6 +152,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("esta no layer grassLayer");
             if (Random.Range(1, 101) <= 20)
             {
+                batalhaMoment = true;
                 inimigoAleatorio = true;
                 canMove = false;
                 entrarBatalha = true;
@@ -157,8 +167,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.5f, npcLayer))
         {
+            npcProps = GameObject.Find("NpcComum").GetComponent<NpcProps>();
             interactController.panelDialogue.SetActive(true);
-            interactController.textoNpc.SetText("Oi");
+            npcProps.AtualizaDialogo();
+            interactController.textoNpc.text = npcProps.dialogo;
             Debug.Log("ta no layer do npc");
         }
 

@@ -5,25 +5,57 @@ using UnityEngine;
 
 public class Moves : MonoBehaviour
 {
+
     [SerializeField]
     Pokemon pokemon;
     [SerializeField]
     Pokemon enemy;
 
+    public BatalhaController batalhaController;
+    
+    public EnemyInfosController enemyInfosController;
+    public PokeInfosController pokeInfosController;
+
+    public bool atacou = false;
+
+    private void Start()
+    {
+        batalhaController = GameObject.Find("ScriptBatalha").GetComponent<BatalhaController>();
+
+        pokemon = GameObject.Find("PanelPlayer").GetComponent<Pokemon>();
+        enemy = GameObject.Find("PanelEnemy").GetComponent<Pokemon>();
+
+        pokeInfosController = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
+        enemyInfosController = GameObject.Find("PanelEnemy").GetComponentInChildren<EnemyInfosController>();
+    }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A) || atacou == true)
         {
+            pokemon.FixarInfos(); //Fixar os status do pokemon (o ataque estava ficando 0 sem isso)
+            Debug.Log("ataque do " + pokemon.PokeName + " e " + pokemon.Attack);
             PhysicalDamage(enemy);
+
+            enemyInfosController.AtualizaVidaE();
         }
     }
     //Dano Físico
     public void PhysicalDamage(Pokemon target)
     {
-        int damage = pokemon.Attack - target.Defense;
+        int damage = pokemon.Attack - target.Defense/2;
+        Debug.Log(pokemon.Attack + "-" + target.Defense/2);
         if (damage < 0) damage = 0;
         target.CurrentHP -= damage;
         Debug.Log($"{pokemon.PokeName} caused {damage} physical damage to {target.PokeName}!");
+
+        if (enemyInfosController.statusPokeE.CurrentHP >= 0)
+            batalhaController.textoBatalha.text = pokeInfosController.statusPoke.PokeName + " causou " + damage.ToString() + " a " + enemyInfosController.statusPokeE.PokeName;
+
+        atacou = false;
+        
+        enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(enemyInfosController.hpEnemy.hpChange));
+        
     }
 
     // Dano Especial
