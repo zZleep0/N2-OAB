@@ -7,9 +7,9 @@ public class Moves : MonoBehaviour
 {
 
     [SerializeField]
-    Pokemon pokemon;
+    public Pokemon pokemon;
     [SerializeField]
-    Pokemon enemy;
+    public Pokemon enemy;
 
     public BatalhaController batalhaController;
     
@@ -39,6 +39,7 @@ public class Moves : MonoBehaviour
 
             enemyInfosController.AtualizaVidaE();
         }
+
     }
     //Dano Físico
     public void PhysicalDamage(Pokemon target)
@@ -55,7 +56,6 @@ public class Moves : MonoBehaviour
         atacou = false;
         
         enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(enemyInfosController.hpEnemy.hpChange));
-        
     }
 
     // Dano Especial
@@ -178,4 +178,22 @@ public class Moves : MonoBehaviour
     //    Debug.Log($"{this.Name} created a substitute with {substituteHP} HP!");
     //    // Implement substitute logic
     //}
+
+    //ATAQUES DO INIMIGO
+    //Dano Físico
+    public void PhysicalDamageI(Pokemon target)
+    {
+        int damage = enemy.Attack - target.Defense / 2;
+        Debug.Log(enemy.Attack + "-" + target.Defense / 2);
+        if (damage < 0) damage = 0;
+        target.CurrentHP -= damage;
+        Debug.Log($"{enemy.PokeName} caused {damage} physical damage to {target.PokeName}!");
+
+        //if (enemyInfosController.statusPokeE.CurrentHP >= 0)
+        //    batalhaController.textoBatalha.text = pokeInfosController.statusPoke.PokeName + " causou " + damage.ToString() + " a " + enemyInfosController.statusPokeE.PokeName;
+
+        //atacou = false;
+
+        //enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(enemyInfosController.hpEnemy.hpChange));
+    }
 }

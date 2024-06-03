@@ -30,7 +30,10 @@ public class PokeInfosController : MonoBehaviour
         hpPlayer = GameObject.Find("HpPlayer").GetComponent<PlayerHp>();
 
         pokeChoose = 1;
-        
+
+        //Definir o nivel inicial do pokemon
+        statusPoke.Level = 4;
+
     }
 
     // Update is called once per frame
@@ -40,6 +43,8 @@ public class PokeInfosController : MonoBehaviour
         {            
             Player();
         }
+        if (playerController.batalhaMoment == true)
+            DefinirVida();
     }
 
     public void Player()
@@ -47,15 +52,14 @@ public class PokeInfosController : MonoBehaviour
         //Escolha de pokemon no script pokemonChoose
         statusPoke.pokemon = poke[pokeChoose];
 
-        //Definir o nivel do pokemon
-        statusPoke.Level = 4;
-
         //pegar os status no script pokemon
         statusPoke.FixarInfos();
 
         //Definir a vida do pokemon com base no status
         hpPlayer.hp.maxValue = statusPoke.MaxHP;
-        statusPoke.CurrentHP = (int)hpPlayer.hp.value;
+        statusPoke.MaxHP = (int)hpPlayer.hp.value;
+        hpPlayer.hp.value = statusPoke.CurrentHP;
+        statusPoke.CurrentHP = (int)hpPlayer.hp.maxValue;
 
         //Colocar as infos no Canvas
         scriptSprites.textPokePlayer.text = statusPoke.PokeName;
@@ -65,10 +69,16 @@ public class PokeInfosController : MonoBehaviour
         
     }
 
+    public void DefinirVida()
+    {
+        hpPlayer.hp.value = statusPoke.CurrentHP;
+    }
+
     //Feito no script PlayerHp
     public void AtualizarVida()
     {
-        statusPoke.CurrentHP = (int)hpPlayer.hp.value;
+        hpPlayer.hpChange = statusPoke.CurrentHP;
+        hpPlayer.StartCoroutine(hpPlayer.HpDown(hpPlayer.hpChange));
         Debug.Log("A vida do pokemon agora é " + statusPoke.CurrentHP);
     }
 

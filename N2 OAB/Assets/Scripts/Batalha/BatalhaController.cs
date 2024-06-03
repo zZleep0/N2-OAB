@@ -11,23 +11,25 @@ public class BatalhaController : MonoBehaviour
     public PlayerController playerScript;
     public Moves movesScript;
     public PokeInfosController pokeInfosController;
+    public EnemyInfosController enemyInfosController;
     
-    public List<TextMeshProUGUI> moveTexts;
-    [SerializeField] public MoveBase[] movesBase;
-    public string[] moveNames = { "Charm", "Confuse Ray", "Covert", "Echoed Voice", "Ember", "Growl", "Gust", "Mean Look", "Payback", "Sand Attack", "Scratch", "Spite", "Tackle", "Vine Whip", "Water Gun", "Withdraw" };
-    public List<string> nomes;
+    //public List<TextMeshProUGUI> moveTexts;
+    //[SerializeField] public MoveBase[] movesBase;
+    //public string[] moveNames = { "Charm", "Confuse Ray", "Covert", "Echoed Voice", "Ember", "Growl", "Gust", "Mean Look", "Payback", "Sand Attack", "Scratch", "Spite", "Tackle", "Vine Whip", "Water Gun", "Withdraw" };
+    //public List<string> nomes;
 
     public GameObject panelInteract;
     public TextMeshProUGUI textoBatalha;
     public string padrao = "O que pokemon vai fazer?";
 
     public bool turnoPlayer; // se true = player, se false = inimgo
+    public bool ataqueInimigo = false;
 
     // Start is called before the first frame update
     void Start()
     {
         pokeInfosController = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
-        
+        enemyInfosController = GameObject.Find("PanelEnemy").GetComponent<EnemyInfosController>();
 
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         movesScript = GetComponent<Moves>();
@@ -55,14 +57,15 @@ public class BatalhaController : MonoBehaviour
 
         if (playerScript.entrarBatalha == true)
         {
+            panelInteract.SetActive(true);
+            textoBatalha.SetText(padrao);
             MoveNames();
         }
     }
 
     public void TrocaTurno()
     {
-        
-        StartCoroutine(TurnoInimigo());
+         StartCoroutine(TurnoInimigo());
     }
 
     public IEnumerator TurnoInimigo()
@@ -70,28 +73,36 @@ public class BatalhaController : MonoBehaviour
         turnoPlayer = true; //Para nao repetir a corrotina durante ela mesma
         panelInteract.SetActive(false);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2); //espera a corrotina de diminuir a vida
 
-        //Ataque do inimigo
-        textoBatalha.SetText("inimigo usou tal");
-        yield return new WaitForSeconds(1);
-        Debug.Log("Ataque");
-        yield return new WaitForSeconds(1);
-        textoBatalha.SetText("seu pokemon tomou tal");
-
-        //fim do turno do inimigo
-        yield return new WaitForSeconds(1);
-        panelInteract.SetActive(true);
-        textoBatalha.SetText(padrao);
-    }
-
-    public void Movimentos()
-    {
-        for (int i = 0; i < movesBase.Length; i++)
+        if (enemyInfosController.scriptSprites.playerScript.batalhaMoment == true)
         {
-            movesBase[i] = AssetDatabase.LoadAssetAtPath<MoveBase>("Assets/Game/Resources/Moves/" + moveNames[i] + ".assets");
+            //Ataque do inimigo
+            textoBatalha.SetText(enemyInfosController.statusPokeE.PokeName + " usou Ataque");
+
+            movesScript.PhysicalDamageI(movesScript.pokemon);
+            movesScript.pokeInfosController.AtualizarVida();
+            yield return new WaitForSeconds(1);
+            Debug.Log("Ataque");
+
+            yield return new WaitForSeconds(1);
+            textoBatalha.text = "A vida do seu pokemon é " + pokeInfosController.statusPoke.CurrentHP;
+
+            //fim do turno do inimigo
+            yield return new WaitForSeconds(1);
+            panelInteract.SetActive(true);
+            textoBatalha.SetText(padrao);
         }
+        
     }
+
+    //public void Movimentos()
+    //{
+    //    for (int i = 0; i < movesBase.Length; i++)
+    //    {
+    //        movesBase[i] = AssetDatabase.LoadAssetAtPath<MoveBase>("Assets/Game/Resources/Moves/" + moveNames[i] + ".assets");
+    //    }
+    //}
 
     public void MoveNames()
     {

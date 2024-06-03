@@ -12,7 +12,7 @@ public class EnemyInfosController : MonoBehaviour
     //Script do pokemon
     public Pokemon statusPokeE;
 
-
+    public bool fimBatalha = false;
 
     //Pokemons possiveis na batalha
     public string[] poke = { "Bulbasaur", "Charmander", "Squirtle", "Pidgey", "Haunter", "Jigglypuff" };
@@ -35,7 +35,7 @@ public class EnemyInfosController : MonoBehaviour
         //Mudar as sprites do inimigo aleatoriamente quando achar batalha
         if (scriptSprites.playerScript.inimigoAleatorio == true)
         {
-            Inimigo();   
+            Inimigo();
             scriptSprites.playerScript.inimigoAleatorio = false;
         }
         if (scriptSprites.playerScript.batalhaMoment == true)
@@ -87,6 +87,8 @@ public class EnemyInfosController : MonoBehaviour
 
         if (statusPokeE.CurrentHP <= 0)
         {
+            fimBatalha = true;
+            statusPokeE.CurrentHP = 0;
             Debug.Log("Zerou a vida");
             hpEnemy.batalhaController.textoBatalha.text = "O inimigo foi derrotado";
             hpEnemy.isAlive = false;
