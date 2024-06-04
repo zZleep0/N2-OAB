@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.5f, npcLayer))
         {
-            npcProps = GameObject.Find("NpcComum").GetComponent<NpcProps>();
+            npcProps = Physics2D.OverlapCircle(transform.position, 0.5f, npcLayer).gameObject.GetComponent<NpcProps>();
             interactController.panelDialogue.SetActive(true);
             npcProps.AtualizaDialogo();
             interactController.textoNpc.text = npcProps.dialogo;

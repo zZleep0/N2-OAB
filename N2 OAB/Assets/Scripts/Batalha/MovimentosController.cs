@@ -1,35 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AtaqueController : MonoBehaviour
+public class MovimentosController : MonoBehaviour
 {
-    public GameObject panelAtaques;
-
-    public Pokemon poke;
     public Moves moveAction;
     public MoveBase[] moveBase;
-    string[] moveNames = { "Ember", "Growl", "Scratch" }; //0
+    string[] moveNames = { "Ember", "Growl", "Scratch"};
 
     // Start is called before the first frame update
     void Start()
     {
-        //moveNames = new string[4];
-        
-        moveBase = new MoveBase[3];
-
-        panelAtaques = GameObject.Find("PanelAtaques");
-        panelAtaques.SetActive(false);
-
-        moveAction = GameObject.Find("ScriptBatalha").GetComponent<Moves>();
-        //for (int i = 0; i < moveNames.Length; i++)
-        //{
-        //    moveNames[i] = poke.pokemonBase.LearnableMoves[i].Base.Name;
-        //}
+        moveAction = GameObject.Find("BatalhaController").GetComponent<Moves>();
     }
 
     // Update is called once per frame
@@ -38,6 +23,7 @@ public class AtaqueController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             MovimentosSetup();
+
         }
     }
 
@@ -45,10 +31,10 @@ public class AtaqueController : MonoBehaviour
     {
         for (int i = 0; i < moveBase.Length; i++)
         {
-            moveBase[i] = AssetDatabase.LoadAssetAtPath<MoveBase>("Assets/Game/Resources/Moves/" + moveNames[i] + ".asset");
+            moveBase[i] = AssetDatabase.LoadAssetAtPath<MoveBase>("Assets/Game/Resources/" + moveNames[i] + ".assets");
         }
 
-        for (int i = 0; i < moveBase.Length; i++)
+        for (int i = 0;i < moveBase.Length; i++)
         {
             GameObject move = GameObject.Find("Ataque" + (i + 1));
             move.GetComponentInChildren<TextMeshProUGUI>().text = moveNames[i];

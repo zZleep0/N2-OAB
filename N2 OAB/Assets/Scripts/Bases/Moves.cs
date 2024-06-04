@@ -31,7 +31,7 @@ public class Moves : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) || atacou == true)
+        if(Input.GetKeyDown(KeyCode.A)/* || atacou == true*/)
         {
             pokemon.FixarInfos(); //Fixar os status do pokemon (o ataque estava ficando 0 sem isso)
             Debug.Log("ataque do " + pokemon.PokeName + " e " + pokemon.Attack);

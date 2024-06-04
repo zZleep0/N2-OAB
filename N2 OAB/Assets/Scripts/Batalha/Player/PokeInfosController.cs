@@ -34,6 +34,7 @@ public class PokeInfosController : MonoBehaviour
         //Definir o nivel inicial do pokemon
         statusPoke.Level = 4;
 
+        
     }
 
     // Update is called once per frame

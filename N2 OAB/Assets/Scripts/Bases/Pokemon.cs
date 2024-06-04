@@ -163,7 +163,7 @@ public class Pokemon : MonoBehaviour
     }
 
     // Método para atualizar os atributos ao subir de nível
-    private void UpdateAttributes()
+    public void UpdateAttributes()
     {
         // Ajusta os atributos com base no novo nível e nos incrementos de atributo
         maxHP = baseHP + (incrementHP * level);

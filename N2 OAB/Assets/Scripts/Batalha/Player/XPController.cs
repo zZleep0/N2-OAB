@@ -50,6 +50,8 @@ public class XPController : MonoBehaviour
                 Debug.Log("Lv agora é " + pokeInfosController.statusPoke.Level);
                 pokeInfosController.scriptSprites.textLvlPlayer.text = "Lv " + pokeInfosController.statusPoke.Level;
                 xp.maxValue *= 3;
+                pokeInfosController.statusPoke.UpdateAttributes();
+                Debug.Log("Agora o ataque é " + pokeInfosController.statusPoke.Attack);
             }
             yield return null;
         }
