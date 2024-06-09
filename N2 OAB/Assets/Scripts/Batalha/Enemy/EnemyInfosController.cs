@@ -32,27 +32,38 @@ public class EnemyInfosController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (scriptSprites.playerScript.batalhaMoment == true)
+            DefinirVida();
         //Mudar as sprites do inimigo aleatoriamente quando achar batalha
         if (scriptSprites.playerScript.inimigoAleatorio == true)
         {
+            //aleatorizar o pokemon inimigo
+            pokeChoose = Random.Range(0, poke.Length);
+            statusPokeE.pokemon = poke[pokeChoose];
+
+            //aleatorizar o nivel do inimigo
+            statusPokeE.Level = Random.Range(2, 10);
+
             Inimigo();
             scriptSprites.playerScript.inimigoAleatorio = false;
         }
-        if (scriptSprites.playerScript.batalhaMoment == true)
-            DefinirVida();
+        //Mudar o inimigo com base no npc colidido
+        else if (playerController.treinadorProps.vsNPC)
+        {
+            playerController.treinadorProps.PokeNPC();
+            statusPokeE.pokemon = poke[pokeChoose];
+            statusPokeE.Level = 5;
+            Inimigo();
+            playerController.treinadorProps.vsNPC = false;
+        }
         
-            
+        
 
     }
 
     public void Inimigo()
     {
-        //aleatorizar o pokemon inimigo
-        pokeChoose = Random.Range(0, poke.Length);
-        statusPokeE.pokemon = poke[pokeChoose];
-
-        //aleatorizar o nivel do inimigo
-        statusPokeE.Level = Random.Range(2, 10);
+        
 
         //Pegar as infos no Pokemon que pega o PokemonBase
         statusPokeE.FixarInfos();
@@ -87,6 +98,12 @@ public class EnemyInfosController : MonoBehaviour
 
         if (statusPokeE.CurrentHP <= 0)
         {
+            if (playerController.treinadorProps.lutaNPC == true)
+            {
+                playerController.treinadorProps.isNpcDefeated = true;
+                playerController.treinadorProps.lutaNPC = false;
+            }
+
             fimBatalha = true;
             statusPokeE.CurrentHP = 0;
             Debug.Log("Zerou a vida");
@@ -99,7 +116,7 @@ public class EnemyInfosController : MonoBehaviour
         else
         {
             hpEnemy.hpChange = statusPokeE.CurrentHP;
-            hpEnemy.StartCoroutine(hpEnemy.HpDown(hpEnemy.hpChange));
+            //hpEnemy.StartCoroutine(hpEnemy.HpDown(hpEnemy.hpChange));
             Debug.Log("A vida do pokemon inimigo agora é " + statusPokeE.CurrentHP);
         }
 

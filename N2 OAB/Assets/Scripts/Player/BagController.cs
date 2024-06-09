@@ -62,6 +62,9 @@ public class BagController : MonoBehaviour
             qtdePocao--;
             Debug.Log("Usou pocao, agora tem " + qtdePocao);
             StartCoroutine(UsarPocao());
+
+
+            batalhaController.TrocaTurno();
         }
         else
         {

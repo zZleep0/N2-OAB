@@ -42,13 +42,11 @@ public class PlayerController : MonoBehaviour
     public LayerMask npcCriatura;
     public LayerMask npcCura;
     public bool isInteracting = false;
-    public bool isNPCDefeated;
-    public bool vsNPC;
     public bool isCriaDefeated;
     public bool vsCria;
     public InteractionController interactController;
     public NpcProps npcProps;
-    
+    public TreinadorProps treinadorProps;
     
 
 
@@ -56,16 +54,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         interactController = GameObject.Find("InteractController").GetComponent<InteractionController>();
-        
-        
-        
-        
 
         moveSpeed = 5;
         canMove = true;
 
         isCriaDefeated = false;
-        isNPCDefeated = false;
+        
     }
 
     // Update is called once per frame
@@ -171,6 +165,7 @@ public class PlayerController : MonoBehaviour
             interactController.panelDialogue.SetActive(true);
             npcProps.AtualizaDialogo();
             interactController.textoNpc.text = npcProps.dialogo;
+            interactController.txtProximo.SetActive(true);
             Debug.Log("ta no layer do npc");
         }
 
@@ -179,18 +174,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("esta no layer npcEnemyL");
             interactController.panelDialogue.SetActive(true);
-            if (isNPCDefeated == false)
-            {
-                vsNPC = true;
-                canMove = false;
-                interactController.textoNpc.SetText("Voce se meteu em encrenca");
-                // Chama a função para iniciar a contagem regressiva após interação
-                StartCountdown();
-            }
-            else if (isNPCDefeated == true)
-            {
-                interactController.textoNpc.SetText("Eu fui derrotado, droga!");
-            }
+            treinadorProps = Physics2D.OverlapCircle(transform.position, 0.5f, npcEnemyLayer).gameObject.GetComponent<TreinadorProps>();
+            treinadorProps.NPCState();
         }
 
         //Interacao com pokemon
@@ -238,12 +223,13 @@ public class PlayerController : MonoBehaviour
                 interactController.panelVendedor.SetActive(false);
             }
             interactController.panelDialogue.SetActive(false);
+            interactController.txtProximo.SetActive(false);
             interactController.panelCuradora.SetActive(false);
             isInteracting = false; // Reinicia a interação
         }
     }
     //Countdown para transicao de tela
-    private void StartCountdown()
+    public void StartCountdown()
     {
         if (!isInteracting)
         {

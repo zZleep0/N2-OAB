@@ -13,6 +13,7 @@ public class InteractionController : MonoBehaviour
 
     [Header("Npcs gerais")]
     public TextMeshProUGUI textoNpc;
+    public GameObject txtProximo;
     public GameObject panelDialogue;
     //public string[] infoNpc = { "Nada", "Informante", "Ajudante" };
     
@@ -31,6 +32,7 @@ public class InteractionController : MonoBehaviour
     void Start()
     {
         textoNpc = GameObject.Find("TextoDialogo").GetComponent<TextMeshProUGUI>();
+        txtProximo = GameObject.Find("TxtProximo");
         panelDialogue = GameObject.Find("PanelDialogo");
         panelVendedor = GameObject.Find("PanelVenda");
         panelCuradora = GameObject.Find("PanelCuradora");

@@ -34,34 +34,43 @@ public class Moves : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.A)/* || atacou == true*/)
         {
             pokemon.FixarInfos(); //Fixar os status do pokemon (o ataque estava ficando 0 sem isso)
-            Debug.Log("ataque do " + pokemon.PokeName + " e " + pokemon.Attack);
+            
             PhysicalDamage(enemy);
 
             enemyInfosController.AtualizaVidaE();
         }
 
+        if (Input.GetKeyDown(KeyCode.B)) 
+        { 
+            SpecialDamage(enemy);
+        }
     }
     //Dano Físico
     public void PhysicalDamage(Pokemon target)
     {
-        int damage = pokemon.Attack - target.Defense/2;
-        Debug.Log(pokemon.Attack + "-" + target.Defense/2);
+        pokemon.FixarInfos();
+
+        int damage = pokemon.Attack - target.Defense;
+        Debug.Log(pokemon.Attack + "-" + target.Defense);
         if (damage < 0) damage = 0;
         target.CurrentHP -= damage;
         Debug.Log($"{pokemon.PokeName} caused {damage} physical damage to {target.PokeName}!");
 
+
         if (enemyInfosController.statusPokeE.CurrentHP >= 0)
             batalhaController.textoBatalha.text = pokeInfosController.statusPoke.PokeName + " causou " + damage.ToString() + " a " + enemyInfosController.statusPokeE.PokeName;
 
-        atacou = false;
-        
-        enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(enemyInfosController.hpEnemy.hpChange));
+        enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(target.CurrentHP));
+        enemyInfosController.AtualizaVidaE();
     }
 
     // Dano Especial
     public void SpecialDamage(Pokemon target)
     {
+        pokemon.FixarInfos();
+
         int damage = pokemon.SpecialAttack - target.SpecialDefense;
+        Debug.Log("special " + pokemon.SpecialAttack + "-" + target.SpecialDefense);
         if (damage < 0) damage = 0;
         target.CurrentHP -= damage;
         Debug.Log($"{pokemon.PokeName} caused {damage} special damage to {target.PokeName}!");
@@ -71,6 +80,14 @@ public class Moves : MonoBehaviour
             target.IsBurned = true;
             Debug.Log($"{target.PokeName} was burned!");
         }
+        Debug.Log("SPataque do " + pokemon.PokeName + " e " + pokemon.SpecialAttack);
+
+
+        if (enemyInfosController.statusPokeE.CurrentHP >= 0)
+            batalhaController.textoBatalha.text = pokeInfosController.statusPoke.PokeName + " causou " + damage.ToString() + " a " + enemyInfosController.statusPokeE.PokeName;
+
+        enemyInfosController.hpEnemy.StartCoroutine(enemyInfosController.hpEnemy.HpDown(target.CurrentHP));
+        enemyInfosController.AtualizaVidaE();
     }
 
     // Cura
@@ -183,8 +200,8 @@ public class Moves : MonoBehaviour
     //Dano Físico
     public void PhysicalDamageI(Pokemon target)
     {
-        int damage = enemy.Attack - target.Defense / 2;
-        Debug.Log(enemy.Attack + "-" + target.Defense / 2);
+        int damage = enemy.Attack - target.Defense;
+        Debug.Log(enemy.Attack + "-" + target.Defense);
         if (damage < 0) damage = 0;
         target.CurrentHP -= damage;
         Debug.Log($"{enemy.PokeName} caused {damage} physical damage to {target.PokeName}!");

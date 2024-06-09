@@ -59,6 +59,7 @@ public class PokemonChoose : MonoBehaviour
 
     public void CancelarMenu()
     {
-        playerController.canMove = true;
+        if (playerController.batalhaMoment == false)
+            playerController.canMove = true;
     }
 }

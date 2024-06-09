@@ -6,17 +6,18 @@ public class NpcProps : MonoBehaviour
 {
     [SerializeField] public string dialogo;
     public int dialogoCode;
+    public InteractionController interactionController;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        interactionController = GameObject.Find("InteractController").GetComponent<InteractionController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        MudaDialogo();
     }
     public void AtualizaDialogo()
     {
@@ -37,6 +38,15 @@ public class NpcProps : MonoBehaviour
             default:
                 dialogo = "Oi";
                 break;
+        }
+    }
+
+    public void MudaDialogo()
+    {
+        if (dialogoCode == 1 && Input.GetKeyDown(KeyCode.Space))
+        {
+            dialogo = "Ao sudoeste você pode encontrar uma cidade";
+            interactionController.textoNpc.text = dialogo;
         }
     }
 }

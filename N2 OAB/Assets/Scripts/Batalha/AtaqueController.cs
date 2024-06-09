@@ -9,11 +9,13 @@ using UnityEngine.UI;
 public class AtaqueController : MonoBehaviour
 {
     public GameObject panelAtaques;
+    public EnemyInfosController enemyInfosController;
+    public PokeInfosController pokeInfosController;
 
     public Pokemon poke;
     public Moves moveAction;
     public MoveBase[] moveBase;
-    string[] moveNames = { "Ember", "Growl", "Scratch" }; //0
+    public string[] moveNames = { "Ember", "Growl", "Scratch" }; //0
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +24,14 @@ public class AtaqueController : MonoBehaviour
         
         moveBase = new MoveBase[3];
 
+        moveAction = GameObject.Find("ScriptBatalha").GetComponent<Moves>();
+        enemyInfosController = GameObject.Find("PanelEnemy").GetComponent<EnemyInfosController>();
+        pokeInfosController = GameObject.Find("PanelPlayer").GetComponent<PokeInfosController>();
+
         panelAtaques = GameObject.Find("PanelAtaques");
         panelAtaques.SetActive(false);
 
-        moveAction = GameObject.Find("ScriptBatalha").GetComponent<Moves>();
+        
         //for (int i = 0; i < moveNames.Length; i++)
         //{
         //    moveNames[i] = poke.pokemonBase.LearnableMoves[i].Base.Name;
@@ -59,16 +65,19 @@ public class AtaqueController : MonoBehaviour
 
     public void Ember()
     {
-        moveAction.PhysicalDamage(moveAction.enemy);
+        Debug.Log("Usou ember");
+
+        moveAction.SpecialDamage(moveAction.enemy);
     }
 
     public void Growl()
     {
-
+        Debug.Log("Upou o ataque");
     }
 
     public void Scratch()
     {
-
+        moveAction.PhysicalDamage(moveAction.enemy);
+        
     }
 }

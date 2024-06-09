@@ -12,6 +12,7 @@ public class PokeInfosController : MonoBehaviour
     public PokemonChoose choosePokemon;
     public Sprites scriptSprites;
     public PlayerController playerController;
+    public AtaqueController ataqueController;
     //Script do pokemon
     public Pokemon statusPoke;
     
@@ -21,13 +22,14 @@ public class PokeInfosController : MonoBehaviour
     public int pokeChoose;
 
 
-    // Start is called before the first frame update
+
     void Start()
     {
         statusPoke = GetComponent<Pokemon>();
         scriptSprites = GameObject.Find("ScriptSprites").GetComponent<Sprites>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         hpPlayer = GameObject.Find("HpPlayer").GetComponent<PlayerHp>();
+        ataqueController = GameObject.Find("ScriptAtaque").GetComponent <AtaqueController>();
 
         pokeChoose = 1;
 
@@ -40,12 +42,13 @@ public class PokeInfosController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerController.batalhaMoment == true)
+            DefinirVida();
         if (playerController.entrarBatalha == true)
         {            
             Player();
         }
-        if (playerController.batalhaMoment == true)
-            DefinirVida();
+        
     }
 
     public void Player()
@@ -67,7 +70,8 @@ public class PokeInfosController : MonoBehaviour
         scriptSprites.playerPokemon.sprite = statusPoke.pokemonBase.BackSprite;
         scriptSprites.textLvlPlayer.text = "Lv" + statusPoke.Level;
 
-        
+        //Atribuir os movimentos
+        //ataqueController.MovimentosSetup();
     }
 
     public void DefinirVida()
@@ -79,8 +83,8 @@ public class PokeInfosController : MonoBehaviour
     public void AtualizarVida()
     {
         hpPlayer.hpChange = statusPoke.CurrentHP;
-        hpPlayer.StartCoroutine(hpPlayer.HpDown(hpPlayer.hpChange));
-        Debug.Log("A vida do pokemon agora é " + statusPoke.CurrentHP);
+        //hpPlayer.StartCoroutine(hpPlayer.HpDown(hpPlayer.hpChange));
+        //Debug.Log("A vida do pokemon agora é " + statusPoke.CurrentHP);
     }
 
 }

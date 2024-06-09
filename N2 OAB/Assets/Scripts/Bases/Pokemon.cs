@@ -224,7 +224,8 @@ public class Pokemon : MonoBehaviour
         this.maxHP = pokemonBase.MaxHp;
         this.attack = pokemonBase.Attack;
         this.defense = pokemonBase.Defense;
-
+        this.specialAttack = pokemonBase.SpAttack;
+        this.specialDefense = pokemonBase.SpDefense;
 
         this.leanableMoves = pokemonBase.LearnableMoves;
     }

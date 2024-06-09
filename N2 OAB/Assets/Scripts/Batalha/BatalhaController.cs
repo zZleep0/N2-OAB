@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,13 @@ public class BatalhaController : MonoBehaviour
 
         panelInteract = GameObject.Find("PanelInteracao");
         textoBatalha = GameObject.Find("TextoBatalha").GetComponent<TextMeshProUGUI>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject move = GameObject.Find("Ataque" + (i + 1));
+            move.GetComponentInChildren<TextMeshProUGUI>().text = "-";
+            
+        }
 
         textoBatalha.text = "O que pokemon vai fazer?";
         turnoPlayer = true;
